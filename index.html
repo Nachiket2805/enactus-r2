@@ -268,12 +268,12 @@
   }
   .day-date{font-size:14px; color:var(--text-dimmer); margin-bottom:24px;}
 
-  .timeline{position:relative; padding-left:34px;}
+  .timeline{position:relative; padding-left:34px; max-width:780px;}
   .timeline::before{
     content:''; position:absolute; left:5px; top:8px; bottom:8px; width:2px;
     background:linear-gradient(180deg, rgba(139,107,255,.5), rgba(51,221,230,.5));
   }
-  .timeline-row{position:relative; margin-bottom:14px;}
+  .timeline-row{position:relative; margin-bottom:10px;}
   .timeline-node{
     position:absolute; left:-34px; top:22px;
     width:12px; height:12px; border-radius:50%;
@@ -283,7 +283,7 @@
 
   .cat-badge{
     display:inline-block; font-size:11px; font-weight:600; letter-spacing:.02em;
-    padding:3px 10px; border-radius:999px; margin-bottom:8px;
+    padding:3px 10px; border-radius:999px; flex-shrink:0;
     color:var(--cat-color); background:color-mix(in srgb, var(--cat-color) 14%, transparent);
     border:1px solid color-mix(in srgb, var(--cat-color) 45%, transparent);
   }
@@ -309,16 +309,16 @@
     background:rgba(255,255,255,.04);
   }
   .event-head{
-    display:flex; align-items:flex-start; gap:18px; padding:18px 20px; cursor:pointer;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:13px 18px; cursor:pointer;
   }
   .event-time{
-    font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--cyan);
-    width:72px; flex-shrink:0; padding-top:2px;
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--cyan);
+    width:64px; flex-shrink:0;
   }
-  .event-main{flex:1; min-width:0;}
-  .event-title{font-size:16px; font-weight:600; margin-bottom:8px;}
+  .event-main{flex:1; min-width:0; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .event-title{font-size:15.5px; font-weight:600;}
   .event-chevron{
-    width:18px; height:18px; flex-shrink:0; color:var(--text-dim); margin-top:2px;
+    width:16px; height:16px; flex-shrink:0; color:var(--text-dim); margin-left:auto;
     transition:transform .25s ease;
   }
   .event-card.open .event-chevron{transform:rotate(180deg);}
@@ -326,7 +326,7 @@
     max-height:0; overflow:hidden; transition:max-height .35s ease;
   }
   .event-card.open .event-body{max-height:260px;}
-  .event-body-inner{padding:0 20px 20px 110px; font-size:14.5px; color:var(--text-dim);}
+  .event-body-inner{padding:0 18px 18px 96px; font-size:14.5px; color:var(--text-dim);}
   .event-meta{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0;}
   .meta-badge{
     font-size:11.5px; font-family:'JetBrains Mono', monospace; color:var(--text-dim);
@@ -348,8 +348,9 @@
   .cal-btn:hover{background:rgba(255,255,255,.1); border-color:var(--cyan);}
   .cal-btn svg{width:15px; height:15px;}
   @media (max-width:640px){
-    .event-head{flex-wrap:wrap;}
-    .event-body-inner{padding:0 20px 20px 20px;}
+    .event-head{gap:10px;}
+    .event-time{width:auto;}
+    .event-body-inner{padding:0 18px 18px 18px;}
   }
 
   /* ---------- Register CTA band ---------- */
