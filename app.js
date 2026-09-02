@@ -443,12 +443,57 @@ function RegisterBand({
 }
 
 /* ---------------------------------------------------------
+   Contact
+--------------------------------------------------------- */
+function ContactSection() {
+  return /*#__PURE__*/React.createElement("section", {
+    className: "block",
+    id: "contact"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "section-head"
+  }, /*#__PURE__*/React.createElement("h2", null, "Get in touch"), /*#__PURE__*/React.createElement("p", null, "Questions about registration, sponsorships, or media passes — reach us any of these ways.")), /*#__PURE__*/React.createElement("div", {
+    className: "contact-grid"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "contact-card",
+    href: "mailto:moksha@nsut.ac.in"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "contact-label"
+  }, "Email"), /*#__PURE__*/React.createElement("span", {
+    className: "contact-value"
+  }, "moksha@nsut.ac.in")), /*#__PURE__*/React.createElement("div", {
+    className: "contact-card"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "contact-label"
+  }, "Venue"), /*#__PURE__*/React.createElement("span", {
+    className: "contact-value"
+  }, "NSUT, Dwarka, New Delhi")), /*#__PURE__*/React.createElement("div", {
+    className: "contact-card"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "contact-label"
+  }, "Follow us"), /*#__PURE__*/React.createElement("div", {
+    className: "contact-socials"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "https://instagram.com",
+    target: "_blank",
+    rel: "noopener"
+  }, "Instagram"), /*#__PURE__*/React.createElement("a", {
+    href: "https://linkedin.com",
+    target: "_blank",
+    rel: "noopener"
+  }, "LinkedIn"), /*#__PURE__*/React.createElement("a", {
+    href: "https://facebook.com",
+    target: "_blank",
+    rel: "noopener"
+  }, "Facebook"))))));
+}
+
+/* ---------------------------------------------------------
    Footer
 --------------------------------------------------------- */
 function Footer() {
-  return /*#__PURE__*/React.createElement("footer", {
-    id: "contact"
-  }, /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("div", {
     className: "wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: "foot-row"
@@ -730,7 +775,7 @@ function App() {
     onRegister: openModal
   }), /*#__PURE__*/React.createElement(About, null), /*#__PURE__*/React.createElement(ScheduleSection, null), /*#__PURE__*/React.createElement(RegisterBand, {
     onRegister: openModal
-  }), /*#__PURE__*/React.createElement(Footer, null), modalOpen && /*#__PURE__*/React.createElement(RegistrationModal, {
+  }), /*#__PURE__*/React.createElement(ContactSection, null), /*#__PURE__*/React.createElement(Footer, null), modalOpen && /*#__PURE__*/React.createElement(RegistrationModal, {
     onClose: closeModal
   }));
 }

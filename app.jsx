@@ -309,11 +309,45 @@ function RegisterBand({ onRegister }) {
 }
 
 /* ---------------------------------------------------------
+   Contact
+--------------------------------------------------------- */
+function ContactSection() {
+  return (
+    <section className="block" id="contact">
+      <div className="wrap">
+        <div className="section-head">
+          <h2>Get in touch</h2>
+          <p>Questions about registration, sponsorships, or media passes — reach us any of these ways.</p>
+        </div>
+        <div className="contact-grid">
+          <a className="contact-card" href="mailto:moksha@nsut.ac.in">
+            <span className="contact-label">Email</span>
+            <span className="contact-value">moksha@nsut.ac.in</span>
+          </a>
+          <div className="contact-card">
+            <span className="contact-label">Venue</span>
+            <span className="contact-value">NSUT, Dwarka, New Delhi</span>
+          </div>
+          <div className="contact-card">
+            <span className="contact-label">Follow us</span>
+            <div className="contact-socials">
+              <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------
    Footer
 --------------------------------------------------------- */
 function Footer() {
   return (
-    <footer id="contact">
+    <footer>
       <div className="wrap">
         <div className="foot-row">
           <div className="brand" style={{ fontSize: '16px' }}>
@@ -533,6 +567,7 @@ function App() {
       <About />
       <ScheduleSection />
       <RegisterBand onRegister={openModal} />
+      <ContactSection />
       <Footer />
       {modalOpen && <RegistrationModal onClose={closeModal} />}
     </Fragment>
