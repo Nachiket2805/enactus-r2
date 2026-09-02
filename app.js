@@ -16,17 +16,25 @@ const SCHEDULE = {
       time: '4:00 PM',
       title: 'Inauguration & opening ceremony',
       venue: 'Main Lawn',
-      desc: "Fest kickoff with the director's address and the flag hoist that opens the three days."
+      desc: "Fest kickoff with the director's address and the flag hoist that opens the three days.",
+      category: 'Flagship',
+      status: 'Open'
     }, {
       time: '6:00 PM',
       title: 'Battle of Bands',
       venue: 'Amphitheatre',
-      desc: 'Inter-college bands go head to head in front of a live judging panel.'
+      desc: 'Inter-college bands go head to head in front of a live judging panel.',
+      category: 'Music',
+      status: 'Filling Fast',
+      prizePool: '₹25,000 Pool',
+      teamSize: '4–6 members'
     }, {
       time: '9:00 PM',
       title: 'Music Night',
       venue: 'Main Stage',
-      desc: 'Opening night headline set — the first of three big stage nights.'
+      desc: 'Opening night headline set — the first of three big stage nights.',
+      category: 'Music',
+      status: 'Open'
     }]
   },
   2: {
@@ -35,17 +43,26 @@ const SCHEDULE = {
       time: '11:00 AM',
       title: 'Fashion walk auditions',
       venue: 'Convocation Hall',
-      desc: "Open auditions for a spot in the evening's Fashion Extravaganza."
+      desc: "Open auditions for a spot in the evening's Fashion Extravaganza.",
+      category: 'Flagship',
+      status: 'Filling Fast',
+      teamSize: 'Solo / duo'
     }, {
       time: '3:00 PM',
       title: 'Street Dance Battle',
       venue: 'Open Air Theatre',
-      desc: 'Freestyle and crew battles, open floor after the main rounds.'
+      desc: 'Freestyle and crew battles, open floor after the main rounds.',
+      category: 'Dance',
+      status: 'Open',
+      prizePool: '₹15,000 Pool',
+      teamSize: '2–8 members'
     }, {
       time: '8:00 PM',
       title: 'Fashion Extravaganza',
       venue: 'Main Stage',
-      desc: "The season's biggest student-run runway show, themed and choreographed."
+      desc: "The season's biggest student-run runway show, themed and choreographed.",
+      category: 'Flagship',
+      status: 'Open'
     }]
   },
   3: {
@@ -54,21 +71,113 @@ const SCHEDULE = {
       time: '12:00 PM',
       title: 'Flea market & food trucks',
       venue: 'Central Lawn',
-      desc: 'Stalls, local vendors, and food trucks running through the afternoon.'
+      desc: 'Stalls, local vendors, and food trucks running through the afternoon.',
+      category: 'Informal',
+      status: 'Open'
     }, {
       time: '5:00 PM',
       title: 'Prize distribution',
       venue: 'Amphitheatre',
-      desc: 'Winners from all three days are called up across every competition.'
+      desc: 'Winners from all three days are called up across every competition.',
+      category: 'Informal',
+      status: 'Open'
     }, {
       time: '8:00 PM',
       title: 'Star Night',
       venue: 'Main Stage',
-      desc: 'Closing night headline performance — the biggest crowd of the fest.'
+      desc: 'Closing night headline performance — the biggest crowd of the fest.',
+      category: 'Flagship',
+      status: 'Open'
     }]
   }
 };
+const CATEGORY_COLORS = {
+  Music: '#33dde6',
+  Dance: '#a78bfa',
+  Flagship: '#fb7185',
+  Informal: '#fbbf24'
+};
 const EVENT_OPTIONS = ['Battle of Bands', 'Music Night', 'Fashion Extravaganza', 'Street Dance Battle', 'Star Night'];
+
+/* ---------------------------------------------------------
+   Small inline icons (no external icon library)
+--------------------------------------------------------- */
+function PinIcon(props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    ...props
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), /*#__PURE__*/React.createElement("circle", {
+    cx: "12",
+    cy: "9.5",
+    r: "2.5",
+    stroke: "currentColor",
+    strokeWidth: "2"
+  }));
+}
+function CalendarPlusIcon(props) {
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    ...props
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "3",
+    y: "4.5",
+    width: "18",
+    height: "16",
+    rx: "2.5",
+    stroke: "currentColor",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M3 9.5h18M8 2.5v4M16 2.5v4M12 12.5v6M9 15.5h6",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round"
+  }));
+}
+
+/* ---------------------------------------------------------
+   "Add to calendar" — builds a downloadable .ics file
+--------------------------------------------------------- */
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function parseEventStart(dayLabel, timeLabel, year) {
+  const dm = dayLabel.match(/(\d+)\s+(\w+)/);
+  const day = parseInt(dm[1], 10);
+  const month = MONTHS.indexOf(dm[2]);
+  const tm = timeLabel.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  let hour = parseInt(tm[1], 10);
+  const min = parseInt(tm[2], 10);
+  const ampm = tm[3].toUpperCase();
+  if (ampm === 'PM' && hour !== 12) hour += 12;
+  if (ampm === 'AM' && hour === 12) hour = 0;
+  return new Date(year, month, day, hour, min);
+}
+function pad2(n) {
+  return String(n).padStart(2, '0');
+}
+function formatICSDate(d) {
+  return `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}T${pad2(d.getHours())}${pad2(d.getMinutes())}00`;
+}
+function downloadICS(event, dayLabel) {
+  const start = parseEventStart(dayLabel, event.time, FEST_DATE.getFullYear());
+  const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Moksha 27//EN', 'BEGIN:VEVENT', `UID:${Date.now()}@moksha27`, `DTSTAMP:${formatICSDate(new Date())}`, `DTSTART:${formatICSDate(start)}`, `DTEND:${formatICSDate(end)}`, `SUMMARY:${event.title}`, `LOCATION:${event.venue}`, `DESCRIPTION:${event.desc}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const blob = new Blob([ics], {
+    type: 'text/calendar'
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${event.title.replace(/\s+/g, '-')}.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
 /* ---------------------------------------------------------
    Header
@@ -80,7 +189,9 @@ function Header({
     className: "brand"
   }, /*#__PURE__*/React.createElement("span", {
     className: "brand-mark"
-  }), "Moksha"), /*#__PURE__*/React.createElement("div", {
+  }), "Moksha", /*#__PURE__*/React.createElement("span", {
+    className: "brand-badge"
+  }, "NSUT")), /*#__PURE__*/React.createElement("div", {
     className: "nav-links"
   }, /*#__PURE__*/React.createElement("a", {
     href: "#about"
@@ -153,6 +264,10 @@ function Hero({
   }), /*#__PURE__*/React.createElement("div", {
     className: "glow-orb b"
   }), /*#__PURE__*/React.createElement("div", {
+    className: "hero-dotgrid"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "hero-spot"
+  }), /*#__PURE__*/React.createElement("div", {
     className: "wrap"
   }, /*#__PURE__*/React.createElement("span", {
     className: "hero-eyebrow"
@@ -218,21 +333,40 @@ function About() {
    Schedule (tabs + accordion)
 --------------------------------------------------------- */
 function EventCard({
-  event
+  event,
+  dayLabel
 }) {
   const [open, setOpen] = useState(false);
+  const color = CATEGORY_COLORS[event.category] || '#33dde6';
   return /*#__PURE__*/React.createElement("div", {
-    className: `event-card${open ? ' open' : ''}`
+    className: "timeline-row"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "timeline-node",
+    style: {
+      '--node-color': color
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: `event-card${open ? ' open' : ''}`,
+    style: {
+      '--accent': color
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "event-head",
     onClick: () => setOpen(o => !o)
   }, /*#__PURE__*/React.createElement("div", {
     className: "event-time"
   }, event.time), /*#__PURE__*/React.createElement("div", {
+    className: "event-main"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cat-badge",
+    style: {
+      '--cat-color': color
+    }
+  }, event.category), /*#__PURE__*/React.createElement("div", {
     className: "event-title"
-  }, event.title), /*#__PURE__*/React.createElement("div", {
-    className: "event-venue"
-  }, event.venue), /*#__PURE__*/React.createElement("svg", {
+  }, event.title), /*#__PURE__*/React.createElement("span", {
+    className: "venue-chip"
+  }, /*#__PURE__*/React.createElement(PinIcon, null), event.venue)), /*#__PURE__*/React.createElement("svg", {
     className: "event-chevron",
     viewBox: "0 0 24 24",
     fill: "none"
@@ -246,7 +380,21 @@ function EventCard({
     className: "event-body"
   }, /*#__PURE__*/React.createElement("div", {
     className: "event-body-inner"
-  }, event.desc)));
+  }, event.desc, /*#__PURE__*/React.createElement("div", {
+    className: "event-meta"
+  }, event.prizePool && /*#__PURE__*/React.createElement("span", {
+    className: "meta-badge"
+  }, event.prizePool), event.teamSize && /*#__PURE__*/React.createElement("span", {
+    className: "meta-badge"
+  }, event.teamSize), event.status && /*#__PURE__*/React.createElement("span", {
+    className: `status-badge ${event.status === 'Open' ? 'open' : 'filling'}`
+  }, event.status)), /*#__PURE__*/React.createElement("button", {
+    className: "cal-btn",
+    onClick: e => {
+      e.stopPropagation();
+      downloadICS(event, dayLabel);
+    }
+  }, /*#__PURE__*/React.createElement(CalendarPlusIcon, null), "Add to calendar")))));
 }
 function ScheduleSection() {
   const [day, setDay] = useState(1);
@@ -266,10 +414,13 @@ function ScheduleSection() {
     onClick: () => setDay(d)
   }, "Day ", d))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     className: "day-date"
-  }, data.date), data.events.map((ev, i) => /*#__PURE__*/React.createElement(EventCard, {
+  }, data.date), /*#__PURE__*/React.createElement("div", {
+    className: "timeline"
+  }, data.events.map((ev, i) => /*#__PURE__*/React.createElement(EventCard, {
     key: i,
-    event: ev
-  })))));
+    event: ev,
+    dayLabel: data.date
+  }))))));
 }
 
 /* ---------------------------------------------------------
