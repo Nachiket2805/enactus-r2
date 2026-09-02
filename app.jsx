@@ -41,7 +41,7 @@ function Header({ onRegister }) {
   return (
     <header>
       <nav>
-        <div className="brand"><span className="brand-mark"></span>Moksha</div>
+        <div className="brand"><span className="brand-mark"></span>Moksha<span className="brand-badge">NSUT</span></div>
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#schedule">Schedule</a>
@@ -92,6 +92,8 @@ function Hero({ onRegister }) {
     <section className="hero">
       <div className="glow-orb a"></div>
       <div className="glow-orb b"></div>
+      <div className="hero-dotgrid"></div>
+      <div className="hero-spot"></div>
       <div className="wrap">
         <span className="hero-eyebrow">NSUT Annual Cultural Fest · 20–22 Feb</span>
         <h1>Moksha <em>&rsquo;27</em></h1>
