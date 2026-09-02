@@ -120,7 +120,7 @@ function Header({ onRegister }) {
   return (
     <header>
       <nav>
-        <div className="brand"><span className="brand-mark"></span>Moksha<span className="brand-badge">NSUT</span></div>
+        <div className="brand">Moksha<span className="brand-badge">NSUT</span></div>
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#schedule">Schedule</a>
@@ -351,7 +351,7 @@ function Footer() {
       <div className="wrap">
         <div className="foot-row">
           <div className="brand" style={{ fontSize: '16px' }}>
-            <span className="brand-mark" style={{ width: '20px', height: '20px' }}></span>Moksha &rsquo;27
+            Moksha &rsquo;27
           </div>
           <div className="foot-links">
             <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>

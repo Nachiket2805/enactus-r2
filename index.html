@@ -74,6 +74,8 @@
     -webkit-backdrop-filter:blur(12px);
     background:rgba(8,8,12,.6);
     border-bottom:1px solid rgba(255,255,255,.06);
+    will-change:transform;
+    transform:translateZ(0);
   }
   nav{
     display:flex; align-items:center; justify-content:space-between;
@@ -123,10 +125,16 @@
     text-align:center;
   }
   .glow-orb{
-    position:absolute; border-radius:50%; filter:blur(160px); pointer-events:none;
+    position:absolute; border-radius:50%; pointer-events:none;
   }
-  .glow-orb.a{width:600px; height:600px; background:rgba(139,107,255,.22); top:-240px; left:8%;}
-  .glow-orb.b{width:600px; height:600px; background:rgba(51,221,230,.17); top:-200px; right:6%;}
+  .glow-orb.a{
+    width:900px; height:900px; top:-390px; left:-90px;
+    background:radial-gradient(circle, rgba(139,107,255,.28) 0%, rgba(139,107,255,.14) 35%, transparent 70%);
+  }
+  .glow-orb.b{
+    width:860px; height:860px; top:-350px; right:-120px;
+    background:radial-gradient(circle, rgba(51,221,230,.22) 0%, rgba(51,221,230,.1) 35%, transparent 70%);
+  }
 
   .hero::after{
     content:''; position:absolute; inset:0; z-index:1;

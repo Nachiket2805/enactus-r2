@@ -187,9 +187,7 @@ function Header({
 }) {
   return /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("nav", null, /*#__PURE__*/React.createElement("div", {
     className: "brand"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "brand-mark"
-  }), "Moksha", /*#__PURE__*/React.createElement("span", {
+  }, "Moksha", /*#__PURE__*/React.createElement("span", {
     className: "brand-badge"
   }, "NSUT")), /*#__PURE__*/React.createElement("div", {
     className: "nav-links"
@@ -502,13 +500,7 @@ function Footer() {
     style: {
       fontSize: '16px'
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "brand-mark",
-    style: {
-      width: '20px',
-      height: '20px'
-    }
-  }), "Moksha ’27"), /*#__PURE__*/React.createElement("div", {
+  }, "Moksha ’27"), /*#__PURE__*/React.createElement("div", {
     className: "foot-links"
   }, /*#__PURE__*/React.createElement("a", {
     href: "https://instagram.com",
